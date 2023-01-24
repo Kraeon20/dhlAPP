@@ -1,0 +1,207 @@
+Metadata-Version: 2.1
+Name: pyDHL
+Version: 0.3
+Summary: DHL REST Webservice integration
+Home-page: UNKNOWN
+Author: SMACH Team
+Maintainer-email: pablo.riutort@smachteam.com
+License: UNKNOWN
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+
+pyDHL
+===
+
+Python module to work with DHL REST Webservice integration.
+
+
+## pyDHL as module
+```
+import pyDHL
+```
+By running it as a module pyDHL will expose the following resources.
+
+### Package
+
+Inputs:
+* `weight` (Mandatory): Package weight
+* `length` (Mandatory): Package length
+* `width` (Mandatory): Package width
+* `height` (Mandatory): Package height
+* `price` (Optional): Package price
+* `description` (Optional): Package description
+* `reference` (Optional): Package reference
+
+```
+from pyDHL import Package
+
+package = Package(
+        weight=<package_weight>,
+        length=<package_length>,
+        width=<package_width>,
+        height=<package_height>
+    )]
+```
+
+### Person
+
+A person is a combination of a Contact and Address information. This class is used for both sender and recipient of the the package.
+
+> Rate request just needs shipment's Address.
+
+#### Address
+Inputs:
+
+ * `street_lines` (Mandatory): Person's address first line
+ * `city` (Mandatory): Person's city
+ * `postal_code` (Mandatory): Person's postal code
+ * `country` (Mandatory): Person's country, Must oblige to the DHL's country codes.
+ * `street_lines2` (Optional): Person's address second line. `'N/A'` by default.
+ * `street_lines3` (Optional): Person's address third line.
+
+
+#### Contact
+Inputs:
+* `name` (Mandatory): Person's name
+* `phone` (Mandatory): Person's phone
+* `email` (Optional): Person's email. `'null'` by default
+* `company` (Optional): Person's company. `name` by default
+
+### Shipment
+Mandatory inputs:
+* `packages`: A list of Package
+* `sender` and `recipient`: Persons (or Address in rate request)
+
+In order to build a correct Shipment, please refer to the documentation. Some parameters are set by default and others such as `SERVICE_TYPE` are set following
+a set of conditions and properties of the Shipment itself.
+
+### Requests
+All requests will have as input a valid Shipment object or a dict or dict-like structure.
+
+In order to send requests to DHL Webservices you must first set credentials:
+```
+from pyDHL import requests
+
+credentials = {
+  'account':  # your account number
+  'username':  # your username
+  'password':  # your password
+}
+
+requests.set_credentials(credentials)
+```
+
+Optionally it is possible to set the 'sandbox' environment for testing purposes.
+```
+requests.set_sandbox([True|False])  # use DHL's sandbox endpoints
+```
+
+The result of every request is either the JSON response of the DHL endpoint or, if the requests was wrong, a JSON-like object if twith `error` and `message` keys describing the error.  
+Every requests will update the shipment object given by input if the request was successful.
+
+
+#### Rate Request
+Rate Request will return DHL’s product capabilities (products, services and estimated delivery time) and prices (where applicable) for a certain set of input data.
+
+* Input: Shipment
+* Output: JSON response. DHL Rate Request
+
+```
+from pyDHL.requests import rate
+
+# create a valid shipment
+response = rate(shipment)
+```
+
+
+#### Shipment Request
+The key elements in the response of the Shipment Request will be a base64 encoded PDF label and the Shipment and Piece identification numbers, which you can use for tracking on the DHL web site.
+
+* Input: Shipment
+* Output: JSON response. DHL Shipment Request
+
+```
+from pyDHL.requests import shipment
+
+# create a valid shipment
+response = shipment(shipment)
+```
+
+
+#### Update Request
+The updateShipment request allows for additional pieces to be added to a previously created shipment that has not been picked up by DHL Express/had a scan against it.
+
+* Input: Shipment
+* Output: JSON response. DHL Update Request
+
+```
+from pyDHL.requests import update
+
+# create a valid shipment
+response = update(shipment)
+```
+
+
+#### Tracking Request
+The resulting response will provide tracking events at both the Shipment and/or Piece events corresponding to the DHL Waybill(s) submitted.
+
+* Input: Shipment
+* Output: JSON response. DHL Tracking Request
+
+```
+from pyDHL.requests import tracking
+
+# create a valid shipment
+response = tracking(shipment.id, level=[TRACKING_LAST|TRACKING_ALL])
+```
+
+## pyDHL's Command Line interface
+
+Use pyDHL as a command line program to set up a quick shipment
+```
+pyDHL <option> <shipment_file> [mode]
+```
+
+
+### Options
+Options flag gets mapped with each of the available requests:
+
+*   **-r RATE, --rate RATE**: Rate Request will return DHL’s product capabilities (products, services and estimated delivery time) and prices (where applicable) for a certain set of input data.
+
+*  **-s SHIPMENT, --shipment SHIPMENT**: The key elements in the response of the Shipment Request will be a base64 encoded PDF label and the Shipment and Piece identification numbers, which you can use for tracking on the DHL web site.
+
+*  **-u UPDATE, --update UPDATE**: The updateShipment request allows for additional pieces to be added to a previously created shipment that has not been picked up by DHL Express/had a scan against it.
+
+*  **-t TRACK, --track TRACK**: The resulting response will provide tracking events at both the Shipment and/or Piece events corresponding to the submitted DHL Waybill (Shipment id).
+
+*  **-p PICKUP, --pickup PICKUP**: The requestPickup request allows users to request standalone pickup requests for local and remote/import pickups.
+
+*  **-o OUTPUT, --output OUTPUT**: Output File
+
+*  **--sandbox**: Set sandbox mode
+
+
+### Shipment File
+Following every option there is a shipment file. This is a file that contains all necessary data to build and send requests to DHL. There is an example in `shipment.json`.
+
+### Mode
+By default `pyDHL` will use DHL endpoints that will execute real shipments
+and other actions. For testing purposes and development there is a "sandbox" mode
+that can be activated by adding `-snd|--sandbox` at the end of the command
+
+## Testing
+In order to a successful testing, please edit `tests/config.py` file with valid
+DHL credentials for accessing HTTPS endpoints.
+
+pyDHL uses pytest and coverage to execute tests and to check if everything was correctly executed.
+```
+coverage run -m pytest
+```
+
+Tests are separated between different kinds of shipments available:
+* National: Shipments with origin and source in the same country.
+* EU: Shipments coming from an country in Europe and with destination to a country in Europe.
+* International: None of the cases above.
+
+

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../static/tracking.css">
+  </head>
+  <body>
+    <div class="whole">
+        <table class="table table-striped tracking-table">
+            <thead>
+                <div class="container" id="flexmiddle">
+                <th scope="col">Date</th>
+                <th scope="col">Location</th>
+                <th scope="col">Status</th>
+                </div>
+            </thead>
+            <div class="diff">
+              <form method="GET">
+                <tbody>
+                    {% for item in process %}
+                    <tr>
+                    <td>{{ item.timestamp }}</td>
+                    <td>{{ item.addressLocality }}</td>
+                    <td>{{ item.descriptions }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+              </form>
+            </div>
+        </table>
+    </div>
+  </body>
+</html>

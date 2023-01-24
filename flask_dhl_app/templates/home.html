@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DHL TRACKING</title>
+    <link rel="stylesheet" href="../static/home.css">
+</head>
+<body>
+    <div class="header">
+        <header>
+            <a href="/">
+                <img class="logo" src="{{ logo_path }}" alt="logo" >
+            </a>
+            <nav>
+                <ul class="nav_link">
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <a><button>Track</button></a>
+        </header>
+        
+        <video  autoplay loop class="back_video" muted plays-inline>
+            <source src="{{ video_path }}" type="video/mp4">
+        </video>
+
+        <div class="content">
+            <h1 class="sentence">Track your DHL Package</h1>
+            <form method="post" onsubmit="return validateForm">
+                <input type="text" name="search" id="search" placeholder="&#x270e enter your tracking number" required>
+                <button type="submit" name="track" id="track">TRACK</button>
+            </form>
+            
+        </div>
+            
+        
+    </div>
+    <p></p>
+    <footer>
+        <div class="foot">
+            <h4>
+                2023 Copyright by Kraeon Projects
+            </h4>
+            
+        </div>
+    </footer>
+</body>
+
+</html>

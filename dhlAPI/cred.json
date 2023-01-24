@@ -1,0 +1,6 @@
+{"headers" : [
+    {"Accept": "application/json"},
+    {"DHL-API-Key": "ApiKeyHere"}
+] 
+
+}
