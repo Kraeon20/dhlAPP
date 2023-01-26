@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/phoenix.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+</head>
+<body>
+    <header>
+        
+
+        <div class="navigation">
+            <input type="checkbox" id="nav-checkbox">
+            <label for="nav-checkbox" class="nav-toggle">
+                <img src="../static/media/open.png" alt="open menu" class="open">
+                <img src="../static/media/close.png" alt="close menu" class="close">
+            </label>
+            <ul class="nav-menu">
+                <div class="logo">
+                    <img class="logo" src="{{ logo_path }}">
+                </div>
+                <li class="contact">Contact</li>
+            </ul>
+        </div>
+        <a><button>Track</button></a>
+    </header>
+
+    <div class="hero">
+        <video  autoplay loop class="back_video" muted plays-inline>
+            <source src="{{ video_path }}" type="video/mp4">
+        </video> 
+        <div class="form-content">
+            <h1 class="sentence">Track your DHL Package</h1>
+            <form method="post" class="input-button">
+                <input type="text" name="search" id="search" placeholder="&#x270e enter your tracking number" required>
+                <button class="track-button" type="submit" name="track" id="track">TRACK</button>
+            </form>
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> 
+        
+        <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p> 
+        
+        <p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
+        </p>
+
+        <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> 
+        
+        <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p> 
+        
+        <p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
+        </p>
+
+        <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> 
+        
+        <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p> 
+        
+        <p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
+        </p>
+
+        <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Copyright © 2023 KRAEON</p>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function(){
+            $(window).bind('scroll', function(){
+                var gap = 50;
+                if($(window).scrollTop() > gap){
+                    $('header').addClass('active');
+                } else {
+                    $('header').removeClass('active');
+                }
+            })
+        })
+    </script>
+</body>
+</html>

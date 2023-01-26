@@ -1,0 +1,320 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;800&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+#nav-checkbox, .nav-toggle {
+    display: none;
+}
+
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.back_video {
+    width: 100%;
+    height: auto;
+    min-width: 100%;
+    min-height: 100%;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -100;
+}
+
+
+.form-content{
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    width: 90%;
+    max-width: 900px;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+   
+}
+
+
+.form-content h1{
+    font-size: 65px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-blend-mode: screen;
+    font-weight: bolder;
+    color: #d4a90e;
+}
+
+.form-content form{
+    background: #ffffff;
+    padding: 7px;
+    border-radius: 50px;
+    display: flex;
+    border: 10px solid #d4a90e;
+
+}
+
+.form-content form input{
+    flex: 2;
+    border: none;
+    outline: none;
+    padding: 0 20px;
+    font-size: 18px;
+    border-radius: 50px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.form-content form button{
+    background: #d40511;
+    color: #ffffff;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+
+.form-content form button:hover{
+    background:#05d409 ;
+    transform: scale(0.9);
+   
+
+}
+
+
+.hero a:hover {
+    background: #c00101;
+}
+
+
+.form-content {
+    width: 80%;
+    margin: auto;
+    padding: 50px 0;
+}
+
+
+.form-content p {
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+
+header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 18px 0;
+    transition: background-color 0.5s ease;
+}
+
+
+.logo{
+    width: 200px;
+}
+
+
+.nav-menu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 80px;
+}
+
+
+.nav-menu-items{
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 60px;
+
+}
+
+
+
+
+.nav-menu li {
+    display: inline-block;
+    
+}
+    
+
+
+
+.nav-menu li a {
+    
+    text-decoration: none;
+    padding: 0 15px;
+}
+
+
+.nav-menu li a:hover {
+    background: #cc0000;
+    color: #fff;
+}
+
+
+.active{
+    background: #FFCC00;
+}
+
+
+.active a:hover{
+    color: #fff !important;
+}
+
+
+button{
+    font-size: 16px;
+    padding: 9px 25px;
+    background-color: #d40511;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.5s ease 0s;
+}
+
+button:hover{
+    background-color: #bf050e;
+    transform: scale(1.1);
+}
+
+.dropdown {
+    display: none; /* hide the dropdown by default */
+}
+
+.drop-main:hover .dropdown {
+    display: block; /* show the dropdown when hovering over the "Reach Me" link */
+    position: absolute; /* position the dropdown relative to the "Reach Me" link */
+}
+
+
+.contact{
+    font-size: 16px;
+    padding: 9px 25px;
+    border: 2px solid #000000;
+    border-radius: 50px;
+    cursor: pointer;
+    color: #000000;
+}
+
+
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 150px; /* Adjust height as needed */
+    background-color: #f5f5f5;
+}
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 600px) {
+    header{
+        display: block;
+    }
+
+    .logo{
+        margin-left: 15px;
+    }
+
+    .nav-toggle{
+        display: block;
+        position: absolute;
+        cursor: pointer;
+        margin: 0 1rem;
+        top: 25px;
+        right: 0;
+    }
+
+    .nav-toggle img{
+        width: 25px;
+        
+    }
+
+    .close,
+    input[type='checkbox']{
+        display: none;
+    }
+
+    #nav-checkbox:checked ~ .nav-menu{
+        background: #cc0000;
+        margin-top: 10px;
+        padding: 10px 0;
+        border-top: 1px solid #fff;
+    }
+
+    .nav-menu li{
+        display: none;
+        margin: 10px 0;
+    }
+
+    #nav-checkbox:checked ~ ul.nav-menu li{
+        display: block;
+    }
+
+    #nav-checkbox:checked ~ label.nav-toggle .open{
+        display: none;
+    }
+
+    #nav-checkbox:checked ~ label.nav-toggle .close{
+        display: block;
+    }
+
+    .hero h1{
+        font-size: 46px;
+    }
+
+    .hero h3{
+        font-size: 22px;
+    }
+
+}
+
+
+
+@media (min-aspect-ratio:16/9){
+    .back_video {
+        width: 100%;
+        height: auto;
+    }
+}
+
+
+@media (max-aspect-ratio:16/9){
+    .back_video {
+        width: auto;
+        height: 100%;
+    }
+}

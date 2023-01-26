@@ -12,7 +12,7 @@ def index():
         tracking_number = request.form.get('search')
         return redirect(url_for('home.tracking', tracking_number=tracking_number))
 
-    return render_template('home.html', logo_path='static/media/dhl.png', video_path='static/media/video.mp4')
+    return render_template('phoenix.html', logo_path='../static/media/dhl.png', video_path='../static/media/video.mp4')
 
 
 @home.route('/tracking/<tracking_number>', methods=['GET'])
