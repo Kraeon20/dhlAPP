@@ -39,8 +39,8 @@ def tracking(tracking_number):
 
         for result in events:
             trackingProcesses = {
-                'timestamp': result['timestamp'],
-                'addressLocality': result['location']['address']['addressLocality'],
+                'timestamp': result.get('timestamp'),
+                'addressLocality': result.get('location', {}).get('address', {}).get('addressLocality', ''),
                 'descriptions': result['description'],
             }
             process.append(trackingProcesses)
