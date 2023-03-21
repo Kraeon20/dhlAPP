@@ -2,55 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DHL TRACKING</title>
-    <link rel="stylesheet" href="../static/phoenix.css">
-    <script>
-        function toggleTrackArea() {
-            const trackArea = document.getElementById("track");
-            if (trackArea.style.display === "none") {
-                trackArea.style.display = "flex";
-            } else {
-                trackArea.style.display = "none";
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="../static/css/phoenix.css">
+    <title>DHL Track</title>
 </head>
 <body>
-    <div class="navbar">
-        <a href="#" class="logo">
-            <img class="logo" src="{{ logo_path }}" alt="logo" >
-        </a>
-        <ul class="nav">
-            <li><a href="#track" onclick="toggleTrackArea()">Track</a></li>
-            <li><a href="#about">About</a></li>
-        </ul>
-    </div>
-    <div class="banner-area" id="home">
-        <video src="{{ video_path }}" autoplay loop muted></video>
-    </div>
-    <div class="track-area" id="track" style="display:none;">
-        <div class="form-content">
-            <h1 class="sentence">Enter Your Tracking Number</h1>
-            <form method="post" class="input-button">
-                <input type="text" name="search" id="search" placeholder="&#x270e enter your tracking number" required>
-                <button class="track-button" type="submit" name="track" id="track">TRACK</button>
-            </form>
+    <div class="container">
+        <header class="navbar">
+            <a href="/" class="logo-link">
+                <img class="logo" src="{{ logo_path }}" alt="logo">
+            </a>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="#" class="nav-link" id="track-link">Track</a></li>
+                    <li><a href="#about" class="nav-link" id="about-link">About</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="content-wrapper">
+            <div class="banner-area" id="home">
+                <video src="{{ video_path }}" autoplay loop muted></video>
+                <h2 class="motto" id="motto">Your Trustworthy Package Tracking Service</h2>
+                <div class="track-area hidden" id="track-area">
+                    <div class="form-content">
+                        <h1 class="title">Enter Your Tracking Number</h1>
+                        <form method="post" class="tracking-form">
+                            <input type="text" name="search" id="search" placeholder="&#x270e Enter your tracking number" required>
+                            <button class="track-button" type="submit" name="track" id="track">TRACK</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <main>
+                <div class="about-area hidden" id="about">
+                    <div class="text-part">
+                        <h1>About Area</h1>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                        </p>
+                    </div>
+                </div>
+            </main>
         </div>
     </div>
-    <div class="about-area" id="about">
-        <div class="text-part">
-            <h1>About Area</h1>
-            <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                It has survived not only five centuries, but also the leap into electronic typesetting, 
-                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
-                and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-            </p>
-        </div>
-    </div>
+
+    <footer class="footer">
+        <p>&copy; 2023 Package Track. All Rights Reserved to #KRAEON. </p>
+    </footer>
+
+    <script src="../static/js/home.js"></script>
 </body>
 </html>

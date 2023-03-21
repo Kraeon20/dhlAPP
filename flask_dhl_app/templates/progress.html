@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Details</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a href="/" class="logo">
+      <img class="logo" src="{{ logo_path }}" alt="logo" >
+    </a>
+    <nav class="nav">
+      <ul class="nav">
+        <li><a href="/tracking" onclick="toggleTrackArea()">Track</a></li>
+      </ul>
+    </nav>
+
+  </header>
+
+  <div class="page-container">
+    <div class="track-another-package">
+      <form>
+        <label for="track-input">Track Another Package</label>
+        <div class="input-group">
+          <input type="text" id="track-input" placeholder="&#x270e Enter Tracking Number">
+          <button type="submit">Track</button>
+        </div>
+      </form>
+    </div>
+    
+    <div class="basic-tracking-code centered">
+      <div class="trknum">{{trackNum}}</div><br>
+      <div class="trkserv">{{service.upper()}}</div>
+    </div>
+  
+    <div class="other-content">
+        
+      <div class="second-div">
+        <div class="package-tracking-bar">
+          <div class="sent-to-courier">Sent from: <span class="sent-span">{{last_address_locality}}</span></div>
+          <div class="progress-bar">
+            <div class="progress"></div>
+            <img src="../static/media/delivery.png" class="animate-image" alt="DHL Vehicle">
+        </div>
+          <div class="sent-to-recipient">Delivered at: <span class="delivered-span">{{deliveryLocation}}</span></div>
+        </div>
+      </div>
+        
+    
+      <div class="moreinfo">
+        <a id="showUpdatesBtn">Show more tracking Details <span  id="arrow">&#x2BB7;</span></a>
+        <div id="updatesContainer">
+          <div class="container">
+            <div class="update-delivered">
+              <div class="left">
+                <div class="delivered">{{ statusCode.upper() }}&#x2705;</div>
+                <div class="location">{{ deliveryLocation }}</div>
+              </div>
+              <div class="right">
+                <div class="time">{{ statusTime }}</div>
+                <div class="date">{{ statusDate }}</div>
+              </div>
+            </div>
+            
+            <div class="container">
+              {% for date, events in grouped_events.items() %}
+              <div class="date-group">
+                
+                  {% set event_day, event_time = date.split('|') %}
+                  <div class="date-heading">{{ event_day }}<br>{{ event_time }}</div>
+                  {% for event in events %}
+                  <div class="update">
+                      <div class="left">
+                          <div class="description">{{ event.descriptions }}</div>
+                      </div>
+                      <div class="right">
+                          <div class="time">{{ event.eventDate }}</div>
+                      </div>
+                  </div>
+                  {% endfor %}
+              </div>
+              {% endfor %}
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  
+    <footer>
+      <p>&copy; 2023 Package Track. All Rights Reserved to #KRAEON.</p>
+    </footer>  
+  </div>
+
+  
+  <script>
+    document.getElementById("showUpdatesBtn").addEventListener("click", function() {
+      var updatesContainer = document.getElementById("updatesContainer");
+      var arrow = document.getElementById("arrow");
+    if (updatesContainer.style.maxHeight) {
+      updatesContainer.style.maxHeight = null;
+      arrow.style.transform = "rotate(0deg)";
+    }else {
+      updatesContainer.style.maxHeight = updatesContainer.scrollHeight + "px";
+      arrow.style.transform = "rotate(180deg)";
+    }
+  });
+  </script>
+
+</body>
+</html>
