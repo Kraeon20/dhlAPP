@@ -13,7 +13,7 @@ def index():
         tracking_number = request.form.get('search')
         return redirect(url_for('home.tracking', tracking_number=tracking_number))
 
-    return render_template('phoenix.html', logo_path='../static/media/dhl.png', video_path='../static/media/video.mp4')
+    return render_template('index.html', logo_path='../static/media/dhl.png', video_path='../static/media/video.mp4')
 
 
 @home.route('/tracking/<tracking_number>', methods=['GET'])
@@ -90,7 +90,7 @@ def tracking(tracking_number):
             
     else:
         return render_template('error.html')
-    return render_template('progress.html',grouped_events=grouped_events, process=process, van_path='../flask_dhl_app/static/media/delivery.png', logo_path='../static/media/dhl.png',
+    return render_template('tracking-data.html',grouped_events=grouped_events, process=process, van_path='../flask_dhl_app/static/media/delivery.png', logo_path='../static/media/dhl.png',
                         trackNum=trackNum, service=service, deliveryLocation=deliveryLocation, last_address_locality=last_address_locality,
                         status=status, statusCode=statusCode, statusDescription=statusDescription, statusTime=statusTime,
                         statusDate=statusDate)

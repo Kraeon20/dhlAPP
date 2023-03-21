@@ -224,6 +224,7 @@ li {
 }
 .moreinfo a:hover {
   color: #d40511;
+  cursor: pointer;
 }
 #arrow {
   transition: transform 0.5s ease-out;

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Track Details</title>
-    <link rel="stylesheet" href="../static/css/style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../static/css/tracking-data.css">
 </head>
 <body>
   <header class="navbar">
@@ -48,7 +48,7 @@
           <div class="sent-to-recipient">Delivered at: <span class="delivered-span">{{deliveryLocation}}</span></div>
         </div>
       </div>
-        
+      
     
       <div class="moreinfo">
         <a id="showUpdatesBtn">Show more tracking Details <span  id="arrow">&#x2BB7;</span></a>
@@ -95,20 +95,7 @@
     </footer>  
   </div>
 
-  
-  <script>
-    document.getElementById("showUpdatesBtn").addEventListener("click", function() {
-      var updatesContainer = document.getElementById("updatesContainer");
-      var arrow = document.getElementById("arrow");
-    if (updatesContainer.style.maxHeight) {
-      updatesContainer.style.maxHeight = null;
-      arrow.style.transform = "rotate(0deg)";
-    }else {
-      updatesContainer.style.maxHeight = updatesContainer.scrollHeight + "px";
-      arrow.style.transform = "rotate(180deg)";
-    }
-  });
-  </script>
 
+  <script src="../static/js/tracking-data.js"></script>
 </body>
 </html>
