@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Vinyl&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -14,7 +18,7 @@ body {
     justify-content: space-between;
     align-items: center;
     background-color: #ffcc00;
-    height: 60px;
+    height: 50px;
     position: fixed;
     top: 0;
     width: 100%;
@@ -22,18 +26,36 @@ body {
 }
 
 .logo-link {
-    padding-left: 20px;
+    padding-left: 5px;
 }
 
 .logo {
     width: 200px;
 }
 
-.nav-list {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+.track-motto-button {
+    position: absolute;
+    top: calc(50% + 100px);
+    left: 50%;
+    width: 150px;
+    transform: translateX(-50%);
+    z-index: 2;
+    background-color: #d40511;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 20px;
+    border-radius: 20px;
+    padding: 10px 10px;
+    border: none;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.track-motto-button:hover {
+    background-color: #ffcc00;
+    color: #000;
 }
 
 .nav-link {
@@ -54,6 +76,9 @@ body {
 }
 
 .banner-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100vh;
     position: relative;
@@ -69,16 +94,40 @@ body {
     height: 100%;
     object-fit: cover;
 }
+.banner-area::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+    z-index: 2;
+}
 
 .motto {
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
+    width: 100%;
     transform: translate(-50%, -50%);
     z-index: 2;
-    color: #c8aa00;
+    color: #d40511;
     text-align: center; 
     font-size: 3rem;
+    font-family: 'Lobster', cursive;
+    animation: fadeInDown 0.5s ease-in-out forwards;
+    transition: opacity 0.3s;
+}
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) translateY(-100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
 }
 
 .motto.hidden {
@@ -97,17 +146,25 @@ body {
     transform: translate(-50%, -50%);
     z-index: 2;
     opacity: 0;
+    transition: opacity 0.3s;
 }
 
 
-@keyframes fadeInScaleUp {
+@keyframes fadeIn {
     0% {
         opacity: 0;
-        transform: translate(-50%, -50%) scale(0.8);
     }
     100% {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
     }
 }
 
@@ -128,6 +185,8 @@ body {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: #d40511;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 
@@ -137,8 +196,12 @@ body {
     border-radius: 50px;
     display: flex;
     border: 10px solid #d40511;
+    width: 100%;
 }
 
+.form-content{
+    padding-bottom: 90px;
+}
 .tracking-form input {
     flex: 2;
     border: none;
@@ -150,10 +213,10 @@ body {
 }
 
 .tracking-form button {
-    background: #FFCC00;
+    background: #05d409;
     color: #000000;
-    padding: 15px 40px;
-    border: none;
+    padding: 15px 25px;
+    border: 1px solid black;
     border-radius: 50px;
     cursor: pointer;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -162,7 +225,7 @@ body {
 }
 
 .tracking-form button:hover {
-    background: #05d409;
+    background: #ffcc00;
     transform: scale(0.9);
 }
 
@@ -170,7 +233,9 @@ body {
     width: 65%;
     height: 80%;
 }
-
+.content-wrapper {
+    height: 100%;
+}
 .about-area {
     display: flex;
     flex-direction: column;
@@ -205,16 +270,95 @@ footer {
     width: 100%; 
     margin-top: auto; 
 
-  }
+}
 
 .hidden {
     opacity: 0 !important;
     pointer-events: none;
 }
 
-@media screen and (max-width: 768px) {
-    .title {
-      font-size: 45px;
-      margin-bottom: 20px;
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+@media screen and (max-width: 480px) {
+    .motto {
+        font-size: 2rem;
+    }
+    .tracking-form {
+        width: 100%;
+    }
+
+    .tracking-form button {
+        padding: 10px 20px;
     }
 }
+
+
+
+@media screen and (max-width: 768px) {
+    .logo{
+        width: 180px;
+    }
+    .title {
+        font-size: 45px;
+        margin-bottom: 20px;
+        white-space: normal;
+    }
+
+    .nav-link {
+        font-size: 16px;
+        padding: 5px 15px;
+        margin: 0 5px;
+    }
+    
+    .track-motto-button {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+
+    .track-area {
+        width: 90%;
+    }
+
+    .form-content {
+        padding-bottom: 80px;
+    }
+
+    .tracking-form {
+        padding: 0;
+        border-radius: 20px;
+        height: 40px;
+        border: 3px solid #d40511;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+        width: 100%;
+    }
+
+    .tracking-form input {
+        border-radius: 10px;
+        font-size: 18px;
+        padding: 5px 10px;
+        width: 90%;
+        margin: 3px;
+
+    }
+
+    .tracking-form button {
+        align-items: center;
+        border-radius: 10px;
+        font-size: 16px;
+        display: inline-block;
+        margin: 10px 5px;
+        width: 90%;
+        padding: 10px 5px;
+    }
+
+}
+

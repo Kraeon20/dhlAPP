@@ -13,15 +13,13 @@
       <img class="logo" src="{{ logo_path }}" alt="logo" >
     </a>
     <nav class="nav">
-      <ul class="nav">
-        <li><a href="/tracking" onclick="toggleTrackArea()">Track</a></li>
-      </ul>
+      <a href="/tracking" onclick="toggleTrackArea()">Track</a>
     </nav>
 
   </header>
 
   <div class="page-container">
-    <div class="track-another-package">
+    <div class="track-another-package" id="track-another-package-form">
       <form>
         <label for="track-input">Track Another Package</label>
         <div class="input-group">
@@ -37,15 +35,26 @@
     </div>
   
     <div class="other-content">
+      <div class="update-delivered">
+        <div class="left">
+          <div class="delivered">{{ status }}</div>
+          <div class="location">{{ deliveryLocation }}</div>
+        </div>
+        <div class="right">
+          <div class="time">{{ statusTime }}</div>
+          <div class="date">{{ statusDate }}</div>
+        </div>
+      </div>
+      
         
       <div class="second-div">
         <div class="package-tracking-bar">
-          <div class="sent-to-courier">Sent from: <span class="sent-span">{{last_address_locality}}</span></div>
+          <div class="sent-to-courier">{{last_address_locality}}</div>
           <div class="progress-bar">
             <div class="progress"></div>
             <img src="../static/media/delivery.png" class="animate-image" alt="DHL Vehicle">
         </div>
-          <div class="sent-to-recipient">Delivered at: <span class="delivered-span">{{deliveryLocation}}</span></div>
+          <div class="sent-to-recipient">{{deliveryLocation}}</div>
         </div>
       </div>
       
@@ -54,17 +63,6 @@
         <a id="showUpdatesBtn">Show more tracking Details <span  id="arrow">&#x2BB7;</span></a>
         <div id="updatesContainer">
           <div class="container">
-            <div class="update-delivered">
-              <div class="left">
-                <div class="delivered">{{ statusCode.upper() }}&#x2705;</div>
-                <div class="location">{{ deliveryLocation }}</div>
-              </div>
-              <div class="right">
-                <div class="time">{{ statusTime }}</div>
-                <div class="date">{{ statusDate }}</div>
-              </div>
-            </div>
-            
             <div class="container">
               {% for date, events in grouped_events.items() %}
               <div class="date-group">

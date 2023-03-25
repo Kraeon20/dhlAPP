@@ -1,17 +1,14 @@
-const trackLink = document.querySelector('#track-link');
+const trackMottoButton = document.querySelector('#track-motto-button');
 const aboutLink = document.querySelector('#about-link');
 const trackArea = document.querySelector('#track-area');
 const body = document.querySelector('body');
 const aboutArea = document.querySelector('#about');
 const motto = document.querySelector('#motto');
 
-trackLink.addEventListener('click', (e) => {
+trackMottoButton.addEventListener('click', (e) => {
     e.preventDefault();
-    trackArea.classList.toggle('hidden');
-    trackArea.classList.toggle('show');
-    motto.classList.toggle('hidden');
-    motto.classList.toggle('show');
-    body.classList.toggle('no-scroll');
+    toggleTrackArea();
+    trackMottoButton.classList.add('hidden');
 });
 
 aboutLink.addEventListener('click', (e) => {
@@ -26,3 +23,22 @@ window.addEventListener('scroll', () => {
         aboutArea.classList.add('hidden');
     }
 });
+
+function toggleTrackArea() {
+    if (trackArea.classList.contains('hidden')) {
+        motto.style.opacity = '0';
+        motto.classList.add('hidden');
+        setTimeout(() => {
+            trackArea.style.opacity = '1';
+            trackArea.classList.remove('hidden');
+        }, 300);
+    } else {
+        trackArea.style.opacity = '0';
+        trackArea.classList.add('hidden');
+        setTimeout(() => {
+            motto.style.opacity = '1';
+            motto.classList.remove('hidden');
+            trackMottoButton.classList.remove('hidden');
+        }, 300);
+    }
+}

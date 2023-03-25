@@ -13,22 +13,20 @@
                 <img class="logo" src="{{ logo_path }}" alt="logo">
             </a>
             <nav class="nav">
-                <ul class="nav-list">
-                    <li><a href="#" class="nav-link" id="track-link">Track</a></li>
-                    <li><a href="#about" class="nav-link" id="about-link">About</a></li>
-                </ul>
+                <a href="#about" class="nav-link" id="about-link">About</a>
             </nav>
         </header>
         <div class="content-wrapper">
             <div class="banner-area" id="home">
                 <video src="{{ video_path }}" autoplay loop muted></video>
                 <h2 class="motto" id="motto">Your Trustworthy Package Tracking Service</h2>
+                <button class="track-motto-button" id="track-motto-button">Track</button>
                 <div class="track-area hidden" id="track-area">
-                    <div class="form-content">
+                    <div class="form-content center-content">
                         <h1 class="title">Enter Your Tracking Number</h1>
                         <form method="post" class="tracking-form">
                             <input type="text" name="search" id="search" placeholder="&#x270e Enter your tracking number" required>
-                            <button class="track-button" type="submit" name="track" id="track">TRACK</button>
+                            <button class="track-button" type="submit" name="track" id="track">Follow your Package</button>
                         </form>
                     </div>
                 </div>

@@ -1,0 +1,8 @@
+{
+    "driver": "SQL SERVER",
+    "server" : "ONGOD\\SQLEXPRESS" ,  
+    "database" : "test_track",  
+    "username" : "admin",       
+    "password" : "Backendsmeet2058@"
+    
+}
