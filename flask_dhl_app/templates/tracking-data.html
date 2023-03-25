@@ -72,7 +72,9 @@
                   {% for event in events %}
                   <div class="update">
                       <div class="left">
-                          <div class="description">{{ event.descriptions }}</div>
+                        <div class="description">
+                          {{ event.descriptions | safe | replace("<br>", "") | replace("\n", "") }}
+                        </div>                      
                       </div>
                       <div class="right">
                           <div class="time">{{ event.eventDate }}</div>
