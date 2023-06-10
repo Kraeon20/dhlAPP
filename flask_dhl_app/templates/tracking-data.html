@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="../static/css/tracking-data.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
   <header class="navbar">
@@ -37,8 +38,9 @@
     <div class="other-content">
       <div class="update-delivered">
         <div class="left">
-          <div class="delivered">{{ status }}</div>
-          <div class="location">{{ deliveryLocation }}</div>
+          <div class="statusCode" id="statusCode"></div>
+          <div class="delivered" id="status">{{ status }}</div>
+          <div class="location" name="deliveryLocation">{{ deliveryLocation }}</div>
         </div>
         <div class="right">
           <div class="time">{{ statusTime }}</div>
@@ -50,9 +52,9 @@
       <div class="second-div">
         <div class="package-tracking-bar">
           <div class="sent-to-courier">{{last_address_locality}}</div>
-          <div class="progress-bar">
-            <div class="progress"></div>
-            <img src="../static/media/delivery.png" class="animate-image" alt="DHL Vehicle">
+          <div class="progress-bar" id="progress-bar">
+            <div class="progress" id="progress"></div>
+            <img src="../static/media/delivery.png" class="animate-image" id="animate-image" alt="DHL Vehicle">
         </div>
           <div class="sent-to-recipient">{{deliveryLocation}}</div>
         </div>

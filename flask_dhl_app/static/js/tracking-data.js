@@ -26,33 +26,42 @@ function toggleUpdatesContainer() {
 }
 
 
+
 function updateProgressBar(statusCode) {
-  const progressBar = document.querySelector('.progress');
-  const animateImage = document.querySelector('.animate-image');
 
-  let progressWidth;
-  let imagePosition;
 
-  if (statusCode === 'delivered') {
-    progressWidth = '100%';
-    imagePosition = 'calc(100% - 50px)';
-  } else if (statusCode === 'transit') {
-    progressWidth = '50%';
-    imagePosition = 'calc(50% - 25px)';
-  } else {
-    progressWidth = '0';
-    imagePosition = '0';
+  const statusCodeVariable = document.getElementById("statusCode");
+  const progressBar = document.getElementById("progress-bar");
+  
+  if (statusCodeVariable && progressBar) {
+    console.log(statusCodeVariable.innerHTML);
+    const display = statusCodeVariable.innerHTML;
+  
+    let progressWidth;
+  
+  //   if (display === 'delivered') {
+  //     console.log('MOVE')
+  //     progressBar.style.width = '90%';
+  //     progressWidth = '100%';
+  //   } else {
+  //     progressBar.style.width = '0%';
+  //     console.log('STAY');
+  //     progressWidth = 0;
+  //   }
+  // } else {
+  //   if (!statusCodeVariable) {
+  //     console.error('Error: Cannot find the "statusCode" element.');
+  //   }
+  //   if (!progressBar) {
+  //     console.error('Error: Cannot find the "progress-bar" element.');
+  //   }
   }
+  
 
-  progressBar.style.width = progressWidth;
-  animateImage.style.left = imagePosition;
+
 }
 
-
-const showUpdatesBtn = document.getElementById("showUpdatesBtn");
-showUpdatesBtn.addEventListener("click", toggleUpdatesContainer);
-
 document.addEventListener('DOMContentLoaded', function() {
-  const packageStatus = document.getElementById('progress').dataset.packageStatus;
+  const packageStatus = '{{ packageStatus }}';
   updateProgressBar(packageStatus);
 });

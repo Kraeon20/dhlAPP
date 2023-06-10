@@ -1,7 +1,7 @@
 {
     "driver": "SQL SERVER",
     "server" : "ONGOD\\SQLEXPRESS" ,  
-    "database" : "test_track",  
+    "database" : "TESTING_TRACKING_DATA",  
     "username" : "admin",       
     "password" : "Backendsmeet2058@"
     

@@ -8,6 +8,7 @@ import pyodbc
 
 
 
+
 with open(r"C:\Users\neczu\Documents\DHLAPP\flask_dhl_app\config\db_config.json", "r") as log:
     login_details = json.load(log)
 
@@ -33,14 +34,14 @@ def create_table_and_connect():
 
     try:
         cursor.execute('''
-            IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'tracking_data')
-            CREATE TABLE tracking_data (
+            IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'DHL_TRACKING_DATA')
+            CREATE TABLE DHL_TRACKING_DATA (
                 id INT IDENTITY(1,1) PRIMARY KEY,
-                tracking_number VARCHAR(255) NOT NULL,
-                status VARCHAR(255),
-                statusCode VARCHAR(255),
-                sent_from_location VARCHAR(255),
-                delivery_location VARCHAR(255)
+                NUMBER VARCHAR(255) NOT NULL,
+                STATUS VARCHAR(255),
+                CODE VARCHAR(255),
+                DEPARTURE VARCHAR(255),
+                DELIVERY VARCHAR(255)
             );
         ''')
         connection.commit()
@@ -107,20 +108,20 @@ def tracking_number(tracking_number):
         events = trackingData['shipments'][0]['events']
         
         
-        def insert_data(tracking_number, status, statusCode, sent_from_location, delivery_location):
+        def insert_data(tracking_number, statusDescription, statusCode, sent_from_location, delivery_location):
             # Save tracking number, status, sent from location, and delivery location to the database
             conn = pyodbc.connect(conn_str)
             cursor = conn.cursor()
             cursor.execute('''
-                            MERGE INTO tracking_data AS tgt
-                            USING (SELECT ? AS tracking_number, ? AS status, ? AS statusCode, ? AS sent_from_location, ? AS delivery_location) AS src
-                            ON (tgt.tracking_number = src.tracking_number)
+                            MERGE INTO DHL_TRACKING_DATA AS tgt
+                            USING (SELECT ? AS NUMBER, ? AS STATUS, ? AS CODE, ? AS DEPARTURE, ? AS DELIVERY) AS src
+                            ON (tgt.NUMBER = src.NUMBER)
                             WHEN MATCHED THEN
-                                UPDATE SET tgt.status = src.status, tgt.statusCode = src.statusCode, tgt.sent_from_location = src.sent_from_location, tgt.delivery_location = src.delivery_location
+                                UPDATE SET tgt.STATUS = src.STATUS, tgt.CODE = src.CODE, tgt.DEPARTURE = src.DEPARTURE, tgt.DELIVERY = src.DELIVERY
                             WHEN NOT MATCHED THEN
-                                INSERT (tracking_number, status, statusCode, sent_from_location, delivery_location)
-                                VALUES (src.tracking_number, src.status, src.statusCode, src.sent_from_location, src.delivery_location);
-                        ''', (tracking_number, status, statusCode, sent_from_location, delivery_location))
+                                INSERT (NUMBER, STATUS, CODE, DEPARTURE, DELIVERY)
+                                VALUES (src.NUMBER, src.STATUS, src.CODE, src.DEPARTURE, src.DELIVERY);
+                        ''', (tracking_number, statusDescription, statusCode, sent_from_location, delivery_location))
             conn.commit()
             cursor.close()
             conn.close()
@@ -136,7 +137,7 @@ def tracking_number(tracking_number):
                 if 'address' in event.get('location', {}) and 'addressLocality' in event['location']['address']:
                     last_address_locality = event['location']['address']['addressLocality']
                     
-        insert_data(trackNum, status, statusCode, last_address_locality, deliveryLocation)
+        insert_data(trackNum, statusDescription, statusCode, last_address_locality, deliveryLocation)
         grouped_events = {}
         for result in events:
             timestamp = result.get('timestamp')
@@ -169,16 +170,8 @@ def tracking_number(tracking_number):
     else:
         return render_template('error.html')
     
-            # Add the following function in your code
-    def get_package_status(status_code):
-        if status_code is None or status_code =='':
-            return 'unknown'
-        elif status_code.lower() == 'delivered':
-            return 'delivered'
-        else:
-            return 'transit'
 
     return render_template('tracking-data.html', grouped_events=grouped_events, process=process, van_path='../flask_dhl_app/static/media/delivery.png', logo_path='../static/media/dhl.png',
                         trackNum=trackNum, service=service, deliveryLocation=deliveryLocation, last_address_locality=last_address_locality,
-                        status=status, packageStatus=get_package_status(statusCode), statusDescription=statusDescription, statusTime=statusTime,
+                        status=status, statusCode=statusCode, statusDescription=statusDescription, statusTime=statusTime,
                         statusDate=statusDate)
