@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/index.css">
     <title>DHL Track</title>
+    <link rel="icon" href="../static/media/package-box.png" type="image/x-icon">
 </head>
 <body>
     <div class="container">
@@ -24,8 +25,8 @@
                 <div class="track-area hidden" id="track-area">
                     <div class="form-content center-content">
                         <h1 class="title">Enter Your Tracking Number</h1>
-                        <form method="post" class="tracking-form">
-                            <input type="text" name="search" id="search" placeholder="&#x270e Enter your tracking number" required>
+                        <form method="post" class="tracking-form" id="tracking-form">
+                            <input type="text" name="search" id="search" placeholder="&#x270e; Enter your tracking number" required>
                             <button class="track-button" type="submit" name="track" id="track">Follow your Package</button>
                         </form>
                     </div>
@@ -33,20 +34,80 @@
             </div>
             <main>
                 <div class="about-area hidden" id="about">
-                    <div class="text-part">
-                        <h1>About Area</h1>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                        </p>
+                    <div class="about-content">
+                        <h1>About</h1>
+                        <div class="about-description">
+                            <p>
+                                This program is a DHL package tracking application built with Flask. It allows users to enter a tracking number and retrieve detailed tracking information about their packages.
+                            </p>
+                            <p>
+                                The application interacts with the DHL API to fetch real-time tracking data for a given tracking number. It displays the current status, location, and delivery information of the package. The application also stores the tracking data in a MySQL database for future reference.
+                            </p>
+                            <p>
+                                <strong>Key Features:</strong>
+                            </p>
+                            <ul class="key-features">
+                                <li>Track DHL packages by entering a tracking number.</li>
+                                <li>Retrieve real-time tracking information, including status, location, and delivery details.</li>
+                                <li>Store tracking data in a MySQL database for easy access and historical tracking.</li>
+                                <li>Display a user-friendly interface for tracking package progress.</li>
+                                <li>Provides a responsive and intuitive user experience.</li>
+                            </ul>
+                            <p>
+                                This program utilizes Flask as the web framework, MySQL as the database management system, and the DHL API for retrieving tracking information. It follows best practices for code organization and uses HTML templates to render the user interface.
+                            </p>
+                            <p class="disclaimer">
+                                <em>Disclaimer: This application is my personal project and is not affiliated with DHL. The tracking data displayed may not be real and is used for illustrative purposes only.</em>
+                            </p>
+                            <p class="author">
+                                <strong>Author:</strong> Williams Asante
+                            </p>
+                        </div>
                     </div>
                 </div>
+                
             </main>
+            
+            
         </div>
     </div>
 
-    <footer class="footer">
-        <p>&copy; 2023 Package Track. All Rights Reserved to #KRAEON. </p>
+    <footer>
+        <div class="social-links">
+            <a href="https://github.com/Kraeon20" target="_blank">
+              <img src="../static/media/github.png" alt="GitHub">
+            </a>
+            <a href="https://www.reddit.com/user/Krae-on" target="_blank">
+              <img src="../static/media/reddit (1).png" alt="Reddit">
+            </a>
+            <a href="https://www.linkedin.com/in/williams-asante-8a7b32209/" target="_blank">
+              <img src="../static/media/linkedin (1).png" alt="LinkedIn">
+            </a>
+            <a href="https://t.me/kraeon">
+              <img src="../static/media/telegram (1).png" alt="Telegram" target="_blank">
+            </a>
+            <a href="https://www.buymeacoffee.com/kraeon1" target="_blank">
+              <img src="../static/media/buymeacoffee.png" alt="buymeacoffee" class="buymeacoffee-icon">
+            </a>        
+          </div>
+        <p>&copy; 2023 Package Track. All Rights Reserved to #KRAEON.</p>
     </footer>
+
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-message-container flash-index">
+              {% for category, message in messages %}
+                <div class="flash-message {{ category }}">
+                  <p>{{ message }}</p>
+                  <button class="close-button" onclick="this.parentElement.remove()">&times;</button>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+    </div>      
+    
 
     <script src="../static/js/index.js"></script>
 </body>
