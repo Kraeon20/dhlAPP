@@ -42,3 +42,4 @@ function toggleTrackArea() {
         }, 300);
     }
 }
+

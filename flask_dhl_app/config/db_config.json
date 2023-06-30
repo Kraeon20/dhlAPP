@@ -1,8 +1,7 @@
 {
-    "driver": "SQL SERVER",
-    "server" : "ONGOD\\SQLEXPRESS" ,  
-    "database" : "TESTING_TRACKING_DATA",  
-    "username" : "admin",       
-    "password" : "Backendsmeet2058@"
-    
+    "driver": "MySQL",
+    "server": "localhost",
+    "database": "tracking_data",
+    "username": "root",
+    "password": "Priscilla2058@"
 }

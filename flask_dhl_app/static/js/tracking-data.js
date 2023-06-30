@@ -65,3 +65,22 @@ document.addEventListener('DOMContentLoaded', function() {
   const packageStatus = '{{ packageStatus }}';
   updateProgressBar(packageStatus);
 });
+
+
+
+// Function to update the current date and time
+function updateDateTime() {
+  const dateTimeElement = document.getElementById('currentDateTime');
+  const currentDate = new Date();
+  const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+  const formattedDate = currentDate.toLocaleDateString('en-US', options);
+  const formattedTime = currentDate.toLocaleTimeString('en-US', { hour12: true, hour: 'numeric', minute: '2-digit', second: '2-digit' });
+  dateTimeElement.innerHTML = `${formattedDate}<br>${formattedTime}`;
+
+}
+
+// Call the updateDateTime function initially to set the date and time
+updateDateTime();
+
+// Update the date and time every second
+setInterval(updateDateTime, 1000);

@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Vinyl&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
-
-
+@import url('https://fonts.googleapis.com/css2?family=Revalia&display=swap');
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -10,7 +9,57 @@ body {
 .container {
     display: grid;
     grid-template-rows: auto 1fr auto;
-    height: 100vh;
+    min-height: 100vh;
+}
+.flash-messages {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.flash-message-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    max-width: 400px; /* Increase the width of the message container */
+}
+
+.flash-message {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 12px 16px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.flash-message p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.flash-message.error {
+    background-color: #ffcccc;
+    color: #cc0000;
+}
+
+.close-button {
+    background-color: transparent;
+    border: none;
+    color: #000000;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 10px;
+    height: 24px; /* Increase the height of the close button */
+    width: 24px; /* Increase the width of the close button */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .navbar {
@@ -37,7 +86,7 @@ body {
     position: absolute;
     top: calc(50% + 100px);
     left: 50%;
-    width: 150px;
+    width: 200px;
     transform: translateX(-50%);
     z-index: 2;
     background-color: #d40511;
@@ -45,13 +94,15 @@ body {
     font-weight: bold;
     text-transform: uppercase;
     font-size: 20px;
-    border-radius: 20px;
-    padding: 10px 10px;
+    border-radius: 30px;
+    padding: 12px 20px;
     border: none;
     cursor: pointer;
     margin: 0 10px;
     transition: background-color 0.3s, color 0.3s;
+    font-family: 'Revalia', cursive;
 }
+
 
 .track-motto-button:hover {
     background-color: #ffcc00;
@@ -115,10 +166,11 @@ body {
     color: #d40511;
     text-align: center; 
     font-size: 3rem;
-    font-family: 'Lobster', cursive;
+    font-family: 'Revalia', cursive;
     animation: fadeInDown 0.5s ease-in-out forwards;
     transition: opacity 0.3s;
 }
+
 @keyframes fadeInDown {
     0% {
         opacity: 0;
@@ -238,39 +290,104 @@ body {
 }
 .about-area {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: calc(100vh - 60px);
     padding: 0 20px;
-    margin-bottom: 50px;
+    background-color: #f8f8f8;
 }
 
 .about-area h1 {
-    font-size: 50px;
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #d40511;
 }
 
-.about-area p {
-    font-size: 24px;
-    line-height: 50px;
+.about-content {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+.about-content .about-description {
+    margin-bottom: 30px;
+}
+
+.about-content p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.about-content ul.key-features {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.about-content strong {
+    font-weight: bold;
+}
+
+.about-content em {
+    font-style: italic;
+}
+
+.about-content .disclaimer {
+    margin-top: 40px;
+    font-size: 12px;
+    color: #777777;
+}
+
+.about-content .author {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #777777;
+}
+
 
 footer {
-    background-color: #333;
-    color: #fff;
-    display: flex;
+    background-color: #f8f8f8;
+    color: #333;
+    text-align: center;
+    padding: 20px;
+}
+  
+.social-links a {
+    display: inline-flex;
     justify-content: center;
     align-items: center;
-    height: 70px;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin-top: auto;
-    width: 100%; 
-    margin-top: auto; 
-
+    margin: 0 8px;
+    text-decoration: none; /* Remove the underline */
+  }
+  
+  .social-links img {
+    width: 30px;
+    height: 30px;
+    margin-right: 4px; /* Add some spacing between icons */
+  }
+  
+  .social-links a img[src*="buymeacoffee"] {
+    width: 120px;
+    height: 30px;
+  }
+  
+  
+  footer .social-links {
+    margin-bottom: 10px; /* Add some spacing between the links and the text */
+    border-bottom: 1px solid #ccc; /* Add a border below the links */
+    padding-bottom: 10px; /* Add some spacing between the border and the text */
+  }
+  
+footer p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 10px; /* Add some spacing above the text */
 }
+  
 
 .hidden {
     opacity: 0 !important;
@@ -284,6 +401,9 @@ footer {
     flex-direction: column;
     height: 100%;
 }
+
+
+  
 
 @media screen and (max-width: 480px) {
     .motto {

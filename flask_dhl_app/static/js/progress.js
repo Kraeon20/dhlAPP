@@ -1,1 +1,0 @@
-var delivered = {{ delivered|tojson }};

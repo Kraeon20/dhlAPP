@@ -1,11 +1,9 @@
 import http.client
 import urllib.parse
 import datetime
-from flask import Blueprint, render_template, request, current_app, redirect, url_for
+from flask import Blueprint, render_template, request, current_app, redirect, url_for, flash
 import mysql.connector
 import json
-import pyodbc
-
 
 
 
@@ -27,29 +25,30 @@ home = Blueprint('home', __name__)
 
 def create_table_and_connect():
     try:
-        connection = pyodbc.connect(conn_str)
-    except pyodbc.Error as e:
-        return
-    cursor = connection.cursor()
+        connection = mysql.connector.connect(
+            host=login_details['server'],
+            user=login_details['username'],
+            password=login_details['password'],
+            database=login_details['database']
+        )
+        cursor = connection.cursor()
 
-    try:
         cursor.execute('''
-            IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'DHL_TRACKING_DATA')
-            CREATE TABLE DHL_TRACKING_DATA (
-                id INT IDENTITY(1,1) PRIMARY KEY,
+            CREATE TABLE IF NOT EXISTS DHL_TRACKING_DATA (
+                id INT AUTO_INCREMENT PRIMARY KEY,
                 NUMBER VARCHAR(255) NOT NULL,
                 STATUS VARCHAR(255),
                 CODE VARCHAR(255),
                 DEPARTURE VARCHAR(255),
                 DELIVERY VARCHAR(255)
-            );
+            )
         ''')
         connection.commit()
-    except mysql.connector.Error as e:
-        return
-    finally:
+
         cursor.close()
         connection.close()
+    except mysql.connector.Error as e:
+        return
 
 create_table_and_connect()
 
@@ -66,6 +65,7 @@ def index():
 
 @home.route('/tracking_number/<tracking_number>', methods=['GET'])
 def tracking_number(tracking_number):
+    
     try:
         url = http.client.HTTPSConnection("api-eu.dhl.com")
     except Exception as e:
@@ -85,10 +85,10 @@ def tracking_number(tracking_number):
 
     url.request("GET", "/track/shipments?" + params, "", headers)
     response = url.getresponse()
-    error = response.status
+    connection = response.status
     
     
-    if error == 200:
+    if connection == 200:
         try:
             trackingData = json.loads(response.read().decode('utf-8'))
         except json.JSONDecodeError as e:
@@ -109,22 +109,25 @@ def tracking_number(tracking_number):
         
         
         def insert_data(tracking_number, statusDescription, statusCode, sent_from_location, delivery_location):
-            # Save tracking number, status, sent from location, and delivery location to the database
-            conn = pyodbc.connect(conn_str)
+            conn = mysql.connector.connect(
+                host=login_details['server'],
+                user=login_details['username'],
+                password=login_details['password'],
+                database=login_details['database']
+            )
             cursor = conn.cursor()
+
             cursor.execute('''
-                            MERGE INTO DHL_TRACKING_DATA AS tgt
-                            USING (SELECT ? AS NUMBER, ? AS STATUS, ? AS CODE, ? AS DEPARTURE, ? AS DELIVERY) AS src
-                            ON (tgt.NUMBER = src.NUMBER)
-                            WHEN MATCHED THEN
-                                UPDATE SET tgt.STATUS = src.STATUS, tgt.CODE = src.CODE, tgt.DEPARTURE = src.DEPARTURE, tgt.DELIVERY = src.DELIVERY
-                            WHEN NOT MATCHED THEN
-                                INSERT (NUMBER, STATUS, CODE, DEPARTURE, DELIVERY)
-                                VALUES (src.NUMBER, src.STATUS, src.CODE, src.DEPARTURE, src.DELIVERY);
-                        ''', (tracking_number, statusDescription, statusCode, sent_from_location, delivery_location))
+                INSERT INTO DHL_TRACKING_DATA (NUMBER, STATUS, CODE, DEPARTURE, DELIVERY)
+                VALUES (%s, %s, %s, %s, %s)
+                ON DUPLICATE KEY UPDATE STATUS = VALUES(STATUS), CODE = VALUES(CODE),
+                DEPARTURE = VALUES(DEPARTURE), DELIVERY = VALUES(DELIVERY)
+            ''', (tracking_number, statusDescription, statusCode, sent_from_location, delivery_location))
+
             conn.commit()
             cursor.close()
             conn.close()
+
 
         
         #gets the sent from address(city and country)
@@ -168,8 +171,8 @@ def tracking_number(tracking_number):
             grouped_events[key].append(trackingProcesses)
             
     else:
-        return render_template('error.html')
-    
+        flash("""The Tracking Number is incorrect or DHL has not received any information on the package yet""", 'error')
+        return redirect(url_for('home.index'))    
 
     return render_template('tracking-data.html', grouped_events=grouped_events, process=process, van_path='../flask_dhl_app/static/media/delivery.png', logo_path='../static/media/dhl.png',
                         trackNum=trackNum, service=service, deliveryLocation=deliveryLocation, last_address_locality=last_address_locality,

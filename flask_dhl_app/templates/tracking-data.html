@@ -4,18 +4,17 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
   <link rel="stylesheet" href="../static/css/tracking-data.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <title>DHL Track</title>
+  <link rel="icon" href="../static/media/package-box.png" type="image/x-icon">
 </head>
 <body>
   <header class="navbar">
     <a href="/" class="logo">
       <img class="logo" src="{{ logo_path }}" alt="logo" >
     </a>
-    <nav class="nav">
-      <a href="/tracking" onclick="toggleTrackArea()">Track</a>
-    </nav>
+    <div class="datetime" id="currentDateTime"></div>
 
   </header>
 
@@ -24,7 +23,7 @@
       <form>
         <label for="track-input">Track Another Package</label>
         <div class="input-group">
-          <input type="text" id="track-input" placeholder="&#x270e Enter Tracking Number">
+          <input type="text" id="track-input" placeholder="&#x270e Enter Tracking Number" required>
           <button type="submit">Track</button>
         </div>
       </form>
@@ -93,11 +92,29 @@
     
   
     <footer>
+      <div class="social-links">
+        <a href="https://github.com/Kraeon20" target="_blank">
+          <img src="../static/media/github.png" alt="GitHub">
+        </a>
+        <a href="https://www.reddit.com/user/Krae-on" target="_blank">
+          <img src="../static/media/reddit (1).png" alt="Reddit">
+        </a>
+        <a href="https://www.linkedin.com/in/williams-asante-8a7b32209/" target="_blank">
+          <img src="../static/media/linkedin (1).png" alt="LinkedIn">
+        </a>
+        <a href="https://t.me/kraeon">
+          <img src="../static/media/telegram (1).png" alt="Telegram" target="_blank">
+        </a>
+        <a href="https://www.buymeacoffee.com/kraeon1" target="_blank">
+          <img src="../static/media/buymeacoffee.png" alt="buymeacoffee" class="buymeacoffee-icon">
+        </a>        
+      </div>
       <p>&copy; 2023 Package Track. All Rights Reserved to #KRAEON.</p>
-    </footer>  
+    </footer>
+      
   </div>
 
-
+  
   <script src="../static/js/tracking-data.js"></script>
 </body>
 </html>
