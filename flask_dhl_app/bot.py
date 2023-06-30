@@ -3,8 +3,14 @@ from telebot import types
 import requests
 from datetime import datetime
 from dateutil import parser
+from dotenv import load_dotenv
+import os
 
-bot = telebot.TeleBot('5999258876:AAHAeSsLAbNZmVtwMj6kW8xdIxvIBcbM5FQ')
+
+
+load_dotenv()
+
+bot = telebot.TeleBot(os.environ.get('TELEGRAM_BOT_API_KEY'))
 contact_support = 'https://t.me/kraeon'
 
 
@@ -37,9 +43,10 @@ def process_tracking_number(message, chat_id):
     tracking_number = message.text
     url = "https://api-eu.dhl.com/track/shipments"
     headers = {
-        'Accept': 'application/json',
-        'DHL-API-Key': 'fvnqAYgIza3E13Nq4I65efDJTtARcL0G'
+        'Accept': os.environ.get('ACCEPT'),
+        'DHL-API-Key': os.environ.get('DHL_API_KEY')
     }
+
     params = {
         'trackingNumber': tracking_number
     }
