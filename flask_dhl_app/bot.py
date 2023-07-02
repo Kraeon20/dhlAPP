@@ -17,7 +17,7 @@ contact_support = 'https://t.me/kraeon'
 @bot.message_handler(commands=['start'])
 def handle_start(message):
     chat_id = message.chat.id
-    welcome_message = "Welcome to the DHL Tracking Bot! How can I assist you today?"
+    welcome_message = "Hi there 👋🏾 \nWelcome to the DHL Tracking Bot! \n\nHow can I assist you?"
     bot.send_message(chat_id, welcome_message, reply_markup=create_main_menu())
 
 @bot.message_handler(func=lambda message: message.text == '✅ Track Package')
@@ -109,9 +109,9 @@ def process_tracking_number(message, chat_id):
             # Send the message with the inline button
             bot.send_message(chat_id, message, parse_mode='Markdown', reply_markup=inline_markup)
         else:
-            bot.send_message(chat_id, "Unable to track the package. Please check the tracking number.")
+            bot.send_message(chat_id, "❗️ Unable to track the package. \nPlease check the tracking number.")
     except Exception as e:
-        bot.send_message(chat_id, "An error occurred while tracking the package. Please try again later.")
+        bot.send_message(chat_id, "❗️ An error occurred while tracking the package. \nPlease try again later.")
 
 
 bot.polling()
