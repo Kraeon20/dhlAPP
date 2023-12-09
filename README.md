@@ -33,17 +33,17 @@ install requirements
 
 
 ### Usage
+<div>
+  <img src="./flask_dhl_app/static/media/website_screenshot1.png" width="200" />
+  <img src="./flask_dhl_app/static/media/website_screenshot2.png" width="200" />
+  <img src="./flask_dhl_app/static/media/website_screenshot3.png" width="200" />  
+</div>
 
-![website screenshot1](static/media/website_screenshot1.png)
+<div>
+  <img src="./flask_dhl_app/static/media/bot_screenshot1.png" width="200" />
+  <img src="./flask_dhl_app/static/media/bot_screenshot2.png" width="200" />
+</div>
 
-![website screenshot2](static/media/website_screenshot2.png)
-
-![website screenshot3](static/media/website_screenshot2.png)
-
-
-![bot screenshot1](static/media/bot_screenshot1.png)
-
-![bot screenshot2](static/media/bot_screenshot2.png)
 
 
 ### License
