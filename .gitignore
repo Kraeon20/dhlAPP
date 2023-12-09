@@ -10,4 +10,5 @@ unwanted/
 #files
 .env
 flask_dhl_app/config/db_config.json
+flask_dhl_app/config/secret_key.json
 tracking_numbers.txt
