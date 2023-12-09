@@ -1,7 +1,13 @@
+#folders
 /db.yaml
-
 __pycache__
-
-.env
-
 unwanted/
+
+
+
+
+
+#files
+.env
+db_config.json
+tracking_numbers.txt

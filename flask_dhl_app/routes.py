@@ -4,53 +4,34 @@ import datetime
 from flask import Blueprint, render_template, request, current_app, redirect, url_for, flash
 import mysql.connector
 import json
+from pymongo import MongoClient
 
 
 
-with open(r"C:\Users\neczu\Documents\DHLAPP\flask_dhl_app\config\db_config.json", "r") as log:
+with open(r"flask_dhl_app\config\db_config.json", "r") as log:
     login_details = json.load(log)
-
-
-conn_str =( 
-    f"DRIVER={{{login_details ['driver']}}};"
-    f"SERVER={login_details ['server']};"
-    f"DATABASE={login_details ['database']};"
-    "Trust_Connection=yes;"
-)
 
 
 
 
 home = Blueprint('home', __name__)
 
-def create_table_and_connect():
+def create_collection_and_connect():
     try:
-        connection = mysql.connector.connect(
-            host=login_details['server'],
-            user=login_details['username'],
-            password=login_details['password'],
-            database=login_details['database']
-        )
-        cursor = connection.cursor()
+        # Connect to the MongoDB server
+        client = MongoClient(login_details['mongodb_uri'])
 
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS DHL_TRACKING_DATA (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                NUMBER VARCHAR(255) NOT NULL,
-                STATUS VARCHAR(255),
-                CODE VARCHAR(255),
-                DEPARTURE VARCHAR(255),
-                DELIVERY VARCHAR(255)
-            )
-        ''')
-        connection.commit()
+        # Access the 'DHL_TRACKING_DATA' database
+        db = client[login_details['database']]
 
-        cursor.close()
-        connection.close()
-    except mysql.connector.Error as e:
-        return
+        # Access or create the 'DHL_TRACKING_DATA' collection
+        collection = db['flask_col']
 
-create_table_and_connect()
+    except Exception as e:
+        print(f"Error connecting to MongoDB: {e}")
+        return None
+
+    return collection
 
 
 
@@ -109,24 +90,19 @@ def tracking_number(tracking_number):
         
         
         def insert_data(tracking_number, statusDescription, statusCode, sent_from_location, delivery_location):
-            conn = mysql.connector.connect(
-                host=login_details['server'],
-                user=login_details['username'],
-                password=login_details['password'],
-                database=login_details['database']
-            )
-            cursor = conn.cursor()
+            collection = create_collection_and_connect()
 
-            cursor.execute('''
-                INSERT INTO DHL_TRACKING_DATA (NUMBER, STATUS, CODE, DEPARTURE, DELIVERY)
-                VALUES (%s, %s, %s, %s, %s)
-                ON DUPLICATE KEY UPDATE STATUS = VALUES(STATUS), CODE = VALUES(CODE),
-                DEPARTURE = VALUES(DEPARTURE), DELIVERY = VALUES(DELIVERY)
-            ''', (tracking_number, statusDescription, statusCode, sent_from_location, delivery_location))
+            if collection != None:
+                data = {
+                    'NUMBER': tracking_number,
+                    'STATUS': statusDescription,
+                    'CODE': statusCode,
+                    'DEPARTURE': sent_from_location,
+                    'DELIVERY': delivery_location
+                }
 
-            conn.commit()
-            cursor.close()
-            conn.close()
+                # Insert or update the document based on the tracking number
+                collection.update_one({'NUMBER': tracking_number}, {'$set': data}, upsert=True)
 
 
         

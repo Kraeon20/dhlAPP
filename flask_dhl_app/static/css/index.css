@@ -67,7 +67,7 @@ body {
     justify-content: space-between;
     align-items: center;
     background-color: #ffcc00;
-    height: 50px;
+    height: 8%;
     position: fixed;
     top: 0;
     width: 100%;
@@ -79,29 +79,28 @@ body {
 }
 
 .logo {
-    width: 200px;
+    width: 15%;
 }
 
 .track-motto-button {
     position: absolute;
-    top: calc(50% + 100px);
+    top: 60%;
     left: 50%;
-    width: 200px;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     z-index: 2;
     background-color: #d40511;
     color: #fff;
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 20px;
-    border-radius: 30px;
-    padding: 12px 20px;
+    font-size: 1.5rem;
+    border-radius: 40px;
+    padding: 15px 30px;
     border: none;
     cursor: pointer;
-    margin: 0 10px;
     transition: background-color 0.3s, color 0.3s;
     font-family: 'Revalia', cursive;
 }
+
 
 
 .track-motto-button:hover {
@@ -113,7 +112,7 @@ body {
     color: #000;
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 20px;
+    font-size: 2vw;
     font-weight: bold;
     border-radius: 20px;
     padding: 8px 20px;
@@ -144,7 +143,9 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-fit: cover;
 }
+
 .banner-area::before {
     content: '';
     position: absolute;
@@ -165,7 +166,7 @@ body {
     z-index: 2;
     color: #d40511;
     text-align: center; 
-    font-size: 3rem;
+    font-size: 5vh;
     font-family: 'Revalia', cursive;
     animation: fadeInDown 0.5s ease-in-out forwards;
     transition: opacity 0.3s;
@@ -292,7 +293,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 60px);
+    min-height: 70vh;
     padding: 0 20px;
     background-color: #f8f8f8;
 }
@@ -352,7 +353,7 @@ footer {
     background-color: #f8f8f8;
     color: #333;
     text-align: center;
-    padding: 20px;
+    padding: 2% 5%;
 }
   
 .social-links a {
@@ -416,6 +417,8 @@ footer p {
     .tracking-form button {
         padding: 10px 20px;
     }
+
+
 }
 
 
@@ -437,8 +440,8 @@ footer p {
     }
     
     .track-motto-button {
-        font-size: 16px;
-        padding: 10px 20px;
+        font-size: 1.2rem;
+        padding: 12px 24px;
     }
 
     .track-area {
@@ -480,5 +483,25 @@ footer p {
         padding: 10px 5px;
     }
 
+    .banner-area video {
+        display: none;
+    }
+
+    .banner-area::before {
+        background-image: none;
+    }
+
+    .banner-area {
+        background-image: url('../media/image.webp');
+        background-size: cover;
+        background-position: center;
+    }
+
 }
 
+@media screen and (min-width: 1200px) {
+    .track-motto-button {
+        font-size: 2rem;
+        padding: 20px 40px; 
+    }
+}

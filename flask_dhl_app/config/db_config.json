@@ -1,7 +1,6 @@
 {
-    "driver": "MySQL",
-    "server": "localhost",
-    "database": "tracking_data",
-    "username": "root",
+    "mongodb_uri": "mongodb://localhost:27017/",
+    "database": "flask_db",
+    "username": "kraeon",
     "password": "Priscilla2058@"
 }

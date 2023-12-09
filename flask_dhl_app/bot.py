@@ -52,6 +52,8 @@ def process_tracking_number(message, chat_id):
     }
     try:
         response = requests.get(url, headers=headers, params=params)
+        print(f"API Response Code: {response.status_code}")
+        print(f"API Response Content: {response.text}")
         if response.status_code == 200:
             tracking_data = response.json()
             shipment = tracking_data['shipments'][0]
@@ -63,17 +65,17 @@ def process_tracking_number(message, chat_id):
 
             events = shipment.get('events', [])
             grouped_events = {}
-            for event in events:
-                event_time = parser.parse(event['timestamp'])
-                event_date = event_time.date()
-                event_location = event['location']['address']['addressLocality']
-                event_description = event['description']
-                event_message = f"⏰ {event_time.strftime('%I:%M %p')}\n📍 {event_location}\n📝 {event_description}"
+            # for event in events:
+                # event_time = parser.parse(event['timestamp'])
+                # event_date = event_time.date()
+                # event_location = event['location']['address']['addressLocality']
+                # event_description = event['description']
+                # event_message = f"{event_description}"
 
-                if event_date in grouped_events:
-                    grouped_events[event_date].append(event_message)
-                else:
-                    grouped_events[event_date] = [event_message]
+                # if event_date in grouped_events:
+                #     grouped_events[event_date].append(event_message)
+                # else:
+                #     grouped_events[event_date] = [event_message]
 
             event_messages = []
             for event_date, event_list in grouped_events.items():

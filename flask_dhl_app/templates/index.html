@@ -19,9 +19,9 @@
         </header>
         <div class="content-wrapper">
             <div class="banner-area" id="home">
-                <video src="{{ video_path }}" autoplay loop muted></video>
+                <video src="{{ video_path }}" autoplay loop muted  preload="auto"></video>
                 <h2 class="motto" id="motto">Your Trustworthy Package Tracking Service</h2>
-                <button class="track-motto-button" id="track-motto-button">Track</button>
+                <button class="track-motto-button" id="track-motto-button">Package Status</button>
                 <div class="track-area hidden" id="track-area">
                     <div class="form-content center-content">
                         <h1 class="title">Enter Your Tracking Number</h1>
@@ -41,7 +41,7 @@
                                 This program is a DHL package tracking application built with Flask. It allows users to enter a tracking number and retrieve detailed tracking information about their packages.
                             </p>
                             <p>
-                                The application interacts with the DHL API to fetch real-time tracking data for a given tracking number. It displays the current status, location, and delivery information of the package. The application also stores the tracking data in a MySQL database for future reference.
+                                The application interacts with the DHL API to fetch real-time tracking data for a given tracking number. It displays the current status, location, and delivery information of the package. The application also stores the tracking data in a MongoDB database for future reference.
                             </p>
                             <p>
                                 <strong>Key Features:</strong>
@@ -49,12 +49,12 @@
                             <ul class="key-features">
                                 <li>Track DHL packages by entering a tracking number.</li>
                                 <li>Retrieve real-time tracking information, including status, location, and delivery details.</li>
-                                <li>Store tracking data in a MySQL database for easy access and historical tracking.</li>
+                                <li>Store tracking data in MongoDB database for easy access and historical tracking.</li>
                                 <li>Display a user-friendly interface for tracking package progress.</li>
                                 <li>Provides a responsive and intuitive user experience.</li>
                             </ul>
                             <p>
-                                This program utilizes Flask as the web framework, MySQL as the database management system, and the DHL API for retrieving tracking information. It follows best practices for code organization and uses HTML templates to render the user interface.
+                                This program utilizes Flask as the web framework, MongoDB as the database management system, and the DHL API for retrieving tracking information. It follows best practices for code organization and uses HTML templates to render the user interface.
                             </p>
                             <p class="disclaimer">
                                 <em>Disclaimer: This application is my personal project and is not affiliated with DHL. The tracking data displayed is real and is used for tracking packages that were shipped with DHL</em>
