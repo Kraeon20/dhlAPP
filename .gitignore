@@ -9,5 +9,5 @@ unwanted/
 
 #files
 .env
-db_config.json
+flask_dhl_app/config/db_config.json
 tracking_numbers.txt
