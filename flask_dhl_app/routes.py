@@ -8,7 +8,7 @@ from pymongo import MongoClient
 
 
 
-with open(r"flask_dhl_app\config\db_config.json", "r") as log:
+with open("flask_dhl_app/config/db_config.json", "r") as log:
     login_details = json.load(log)
 
 

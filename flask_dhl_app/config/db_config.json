@@ -1,6 +1,4 @@
 {
-    // "mongodb_uri": "mongodb://localhost:27017/" or mongodb uri,
-    // "database": "flask_db" or mongodb database,
-    // "username": "kraeon" or username,
-    // "password": "mongodb password"
+    "mongodb_uri": "mongodb://localhost:27017/",
+    "database": "flask_db"
 }
